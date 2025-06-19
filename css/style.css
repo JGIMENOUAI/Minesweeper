@@ -1,0 +1,44 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  padding: 20px;
+}
+
+header, footer {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#tablero {
+  display: grid;
+  gap: 2px;
+  justify-content: center;
+}
+
+.celda {
+  width: 30px;
+  height: 30px;
+  background-color: #ccc;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+}
+
+.celda.revelada {
+  background-color: #eee;
+}
+
+.celda.bandera {
+  background-color: yellow;
+}
+
+:root {
+  --color-fondo: #fff;
+  --color-texto: #000;
+}
+
+.modo-oscuro {
+  --color-fondo: #222;
+  --color-texto: #fff;
+}
