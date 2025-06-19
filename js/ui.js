@@ -3,7 +3,10 @@
 function renderizarTablero() {
   var divTablero = document.getElementById("tablero");
   divTablero.innerHTML = "";
-  divTablero.style.gridTemplateColumns = "repeat(" + columnas + ", 30px)";
+
+  // Establecer ancho dinámico para simular filas con Flexbox
+  divTablero.style.width = (columnas * 32) + "px"; // 30px celda + 2px gap
+
   for (var f = 0; f < filas; f++) {
     for (var c = 0; c < columnas; c++) {
       var celda = document.createElement("div");

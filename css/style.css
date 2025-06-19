@@ -1,44 +1,113 @@
+:root {
+  --color-fondo: #ffffff;
+  --color-texto: #000000;
+  --color-celda: #cccccc;
+  --color-celda-revelada: #eeeeee;
+  --color-bandera: #ffcc00;
+  --fuente-principal: Arial, sans-serif;
+}
+
+.modo-oscuro {
+  --color-fondo: #222222;
+  --color-texto: #ffffff;
+  --color-celda: #444444;
+  --color-celda-revelada: #666666;
+  --color-bandera: #ffaa00;
+}
+
 body {
-  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--fuente-principal);
   background-color: var(--color-fondo);
   color: var(--color-texto);
   padding: 20px;
 }
 
-header, footer {
+header,
+footer {
   text-align: center;
   margin-bottom: 20px;
 }
 
-#tablero {
-  display: grid;
-  gap: 2px;
+nav {
+  display: flex;
   justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+#contenedor-juego {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+#controles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+#tablero {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2px;
 }
 
 .celda {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 30px;
   height: 30px;
-  background-color: #ccc;
-  text-align: center;
-  line-height: 30px;
+  background-color: var(--color-celda);
+  border: 1px solid #999999;
+  font-weight: bold;
   cursor: pointer;
+  text-align: center;
 }
 
 .celda.revelada {
-  background-color: #eee;
+  background-color: var(--color-celda-revelada);
 }
 
 .celda.bandera {
-  background-color: yellow;
+  background-color: var(--color-bandera);
 }
 
-:root {
-  --color-fondo: #fff;
-  --color-texto: #000;
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
-.modo-oscuro {
-  --color-fondo: #222;
-  --color-texto: #fff;
+.modal-contenido {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  #controles {
+    flex-direction: column;
+  }
+
+  .celda {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
 }
