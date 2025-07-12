@@ -1,17 +1,16 @@
-
 "use strict";
 
 document.getElementById("nuevo-juego").addEventListener("click", function () {
-    var dificultad = document.getElementById("dificultad").value;
-    iniciarJuego(dificultad);
+  var dificultad = document.getElementById("dificultad").value;
+  iniciarJuego(dificultad);
 });
 
 document.getElementById("tablero").addEventListener("click", function (e) {
-    if (e.target.classList.contains("celda")) {
-        var fila = parseInt(e.target.dataset.fila, 10);
-        var columna = parseInt(e.target.dataset.columna, 10);
-        revelarCelda(fila, columna);
-    }
+  if (e.target.classList.contains("celda")) {
+    var fila = parseInt(e.target.dataset.fila, 10);
+    var columna = parseInt(e.target.dataset.columna, 10);
+    revelarCelda(fila, columna);
+  }
 });
 
 document.getElementById("tablero").addEventListener("contextmenu", function (e) {
@@ -24,6 +23,7 @@ document.getElementById("tablero").addEventListener("contextmenu", function (e) 
       celda.bandera = !celda.bandera;
       e.target.classList.toggle("bandera");
       e.target.textContent = celda.bandera ? "🚩" : "";
+      actualizarContadorMinas();
     }
   }
 });
@@ -37,4 +37,3 @@ document.getElementById("formulario-contacto")?.addEventListener("submit", funct
     e.preventDefault();
   }
 });
-

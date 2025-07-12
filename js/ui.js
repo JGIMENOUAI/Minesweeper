@@ -5,7 +5,9 @@ function renderizarTablero() {
   divTablero.innerHTML = "";
 
   // Establecer ancho dinámico para simular filas con Flexbox
-  divTablero.style.width = (columnas * 32) + "px"; // 30px celda + 2px gap
+  divTablero.style.display = "grid";
+    divTablero.style.gridTemplateColumns = `repeat(${columnas}, 32px)`;
+    divTablero.style.gridGap = "2px";
 
   for (var f = 0; f < filas; f++) {
     for (var c = 0; c < columnas; c++) {

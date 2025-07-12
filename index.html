@@ -1,42 +1,123 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Buscaminas</title>
-  <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/style.css">  
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Buscaminas - Proyecto Final</title>
+  <link href="css/reset.css" rel="stylesheet"/>
+  <link href="css/style.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
   <header>
-    <button id="modo-tema">Cambiar tema</button>
-    <h1>Buscaminas</h1>
+    <h1>UAI - Proyecto Trabajo Final - DESARROLLO Y ARQUITECTURAS WEB </h1>
+    <h3>Alumnos: Gimeno Bustos Juan Manuel - Tarditi Mariano | Turno: Mañana</h3>
     <nav>
-      <a href="index.html">Juego</a>
-      <a href="contact.html">Contacto</a>
+      <a class="boton-select" href="index.html">Juego</a>
+      <a class="boton" href="contact.html">Contacto</a>
+      <button id="modo-tema" class="boton-icono" title="Cambiar tema">
+        <i class="fas fa-moon"></i>
+      </button>
     </nav>
   </header>
   <main id="contenedor-juego">
+    <h1>Buscaminas</h1>
     <div id="controles">
-      <input type="text" id="nombre-jugador" placeholder="Tu nombre (mín. 3 letras)">
-      <button id="nuevo-juego">Nuevo Juego</button>
       <select id="dificultad">
         <option value="facil">Fácil</option>
         <option value="medio">Medio</option>
         <option value="dificil">Difícil</option>
-      </select>
+      </select>      
+      <input type="text" id="nombre-jugador" placeholder="Tu nombre" class="input-jugador" />
+      <button id="nuevo-juego" disabled>Inicio de Juego</button>      
+      <button onclick="borrarPuntajes()" class="boton">Borrar historial</button>
       <span id="temporizador">Tiempo: 0</span>
-      <span id="contador-minas">Minas: 10</span>
+      <span id="contador-minas">Minas restantes: 0</span>
     </div>
     <div id="tablero"></div>
   </main>
+  <main id="contenedor-tabla">
+    <h1>Listado de Puntajes</h1>
+    <table id="tabla-puntajes" border="1" cellpadding="8">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Dificultad</th>
+          <th>Resultado</th>
+          <th>Tiempo (s)</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </main>
   <footer>
-    <p>&copy; 2025 Proyecto Buscaminas</p>
-    <a href="https://github.com/tuusuario/buscaminas" target="_blank">Ver en GitHub</a>
+    <p>©Proyecto Trabajo Final - DESARROLLO Y ARQUITECTURAS WEB</p>
+    <a href="https://github.com/JGIMENOUAI/Minesweeper" target="_blank">Ver en GitHub de Proyecto</a>
   </footer>
-  <script src="js/ui.js"></script>
-  <script src="js/events.js"></script>
-  <script src="js/game.js"></script>
-  <script src="js/storage.js"></script>
   <script src="js/tema.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/events.js"></script>  
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const input = document.getElementById("nombre-jugador");
+      const boton = document.getElementById("nuevo-juego");
+
+      if (boton) {
+        boton.disabled = true;
+
+        input.addEventListener("input", () => {
+          if (input.value.trim().length >= 3) {
+            boton.disabled = false;
+          } else {
+            boton.disabled = true;
+          }
+        });
+
+        boton.addEventListener("click", () => {
+          if (!boton.disabled) {
+            // Aquí se puede llamar a la función que inicia el juego
+            console.log("Juego iniciado con nombre:", input.value);
+            // iniciarJuego(); // Descomentar si existe esta función
+          }
+        });
+      }
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const botonTema = document.getElementById("cambiar-tema");
+      botonTema?.addEventListener("click", () => {
+        document.body.classList.toggle("modo-oscuro");
+      });
+    });
+  </script>
+  <script>
+    function renderizarTablaPuntajes() {
+      const tabla = document.querySelector("#tabla-puntajes tbody");
+      tabla.innerHTML = "";
+      const puntajes = JSON.parse(localStorage.getItem("puntajes") || "[]");
+        puntajes.forEach(p => {
+          const fila = document.createElement("tr");
+          fila.innerHTML = `
+            <td>${p.nombre}</td>
+            <td>${p.dificultad}</td>
+            <td>${p.resultado}</td>
+            <td>${p.tiempo}</td>
+          `;
+          tabla.appendChild(fila);
+        });
+      }
+
+      function borrarPuntajes() {
+        if (confirm("¿Estás seguro de que querés borrar todo el historial?")) {
+          localStorage.removeItem("puntajes");
+          renderizarTablaPuntajes();
+        }
+      }
+    document.addEventListener("DOMContentLoaded", renderizarTablaPuntajes);
+  </script>
+
 </body>
 </html>

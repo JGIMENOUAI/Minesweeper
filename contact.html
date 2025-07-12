@@ -1,35 +1,46 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Contacto</title>
-  <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Buscaminas - Proyecto Final</title>
+  <link href="css/reset.css" rel="stylesheet"/>
+  <link href="css/style.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
-  <header>
-    <h1>Contacto</h1>
+    <header>
+    <h1>UAI - Proyecto Trabajo Final - DESARROLLO Y ARQUITECTURAS WEB </h1>
+    <h3>Alumnos: Gimeno Bustos Juan Manuel - Tarditi Mariano | Turno: Mañana</h3>
     <nav>
-      <a href="index.html">Juego</a>
-      <a href="contact.html">Contacto</a>
+      <a class="boton" href="index.html">Juego</a>
+      <a class="boton-select" href="contact.html">Contacto</a>
+      <button id="modo-tema" class="boton-icono" title="Cambiar tema">
+        <i class="fas fa-moon"></i>
+      </button>
     </nav>
   </header>
-  <main>
-    <form id="formulario-contacto">
-      <label>Nombre:
-        <input type="text" name="nombre" required>
-      </label>
-      <label>Email:
-        <input type="email" name="email" required>
-      </label>
-      <label>Mensaje:
-        <textarea name="mensaje" required></textarea>
-      </label>
+  <main id="contenedor-juego">
+    <h1>Contacto</h1>
+    <form id="formulario-contacto" action="mailto:tuemail@ejemplo.com" method="POST" enctype="text/plain">
+      <label for="nombre">Nombre y Apellido:</label>
+      <input type="text" name="nombre" id="nombre" required>
+
+      <label for="email">Email:</label>
+      <input type="email" name="email" id="email" required>
+
+      <label for="mensaje">Mensaje:</label>
+      <textarea name="mensaje" id="mensaje" required></textarea>
+
       <button type="submit">Enviar</button>
     </form>
-  </main>
+    <div id="tablero"></div>
+  </main>  
   <footer>
-    <p>&copy; 2025 Proyecto Buscaminas</p>
+    <p>©Proyecto Trabajo Final - DESARROLLO Y ARQUITECTURAS WEB</p>
+    <a href="https://github.com/JGIMENOUAI/Minesweeper" target="_blank">Ver en GitHub de Proyecto</a>
   </footer>
+  <script src="js/tema.js"></script>
 </body>
 </html>
+
