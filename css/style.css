@@ -6,12 +6,21 @@
   --color-primario: #007bff;
   --color-secundario: #ffffff;
   --color-celda: #dfe3e8;
-  --color-celda-revelada: #e0e0e0; /* ← cambiado aquí */
+  --color-celda-revelada: #e0e0e0;
   --color-bandera: #ffc107;
   --color-borde: #ced4da;
-  --color-boton: #28a745;
-  --color-boton-hover: #218838;
+  --color-boton: #35547c;
+  --color-boton-hover: #0f234e;
   --fuente-principal: 'Rubik', sans-serif;
+}
+
+header {
+  background-color: #343a40;
+  color: white;
+  padding: 20px;
+  width: 100%;
+  text-align: center;  
+  border-bottom: solid 2px white;
 }
 
 body {
@@ -25,16 +34,25 @@ body {
   align-items: center;
 }
 
-header, footer {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
 nav {
+  background-color: #acc6e0;
   display: flex;
   justify-content: center;
   gap: 15px;
-  margin-top: 10px;
+  width: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+footer {
+  background-color: #343a40;
+  color: white;
+  padding: 15px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.9em;
+  margin-top: 40px;
 }
 
 nav a {
@@ -58,7 +76,7 @@ nav a {
   display: inline-block;
   padding: 8px 16px;
   background-color: var(--color-boton);
-  color: rgb(44, 43, 43);
+  color: rgb(150, 150, 150);
   text-decoration: none;
   border-radius: 6px;
   font-weight: bold;
@@ -294,4 +312,9 @@ button[type="submit"]:hover {
 }
 #tabla-puntajes tr:hover {
   background-color: #f1f1f1;
+}
+
+.title {
+  font-size: 60px; 
+  font-family:'Lucida Sans', sans-serif"
 }
