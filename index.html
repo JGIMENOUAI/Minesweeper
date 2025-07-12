@@ -22,7 +22,7 @@
 </nav>
 <body>  
   <main id="contenedor-juego">
-    <h1 style="font-size: 60px; font-family:'Lucida Sans', sans-serif">Buscaminas</h1>
+    <h1 class="title">Buscaminas</h1>
     <div id="controles">
       <select id="dificultad">
         <option value="facil">Fácil</option>
@@ -78,9 +78,7 @@
 
         boton.addEventListener("click", () => {
           if (!boton.disabled) {
-            // Aquí se puede llamar a la función que inicia el juego
             console.log("Juego iniciado con nombre:", input.value);
-            // iniciarJuego(); // Descomentar si existe esta función
           }
         });
       }
