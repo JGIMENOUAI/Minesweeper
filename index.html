@@ -7,20 +7,23 @@
   <link href="css/reset.css" rel="stylesheet"/>
   <link href="css/style.css" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+
+<body>  
+
   <header>
-    <h1>UAI - Proyecto Trabajo Final - DESARROLLO Y ARQUITECTURAS WEB </h1>
-    <h3>Alumnos: Gimeno Bustos Juan Manuel - Tarditi Mariano | Turno: Mañana</h3>
+    <h1>Buscaminas - Proyecto Trabajo Final - DESARROLLO Y ARQUITECTURAS WEB </h1>
+    <h3>Gimeno Bustos Juan Manuel - Tarditi Mariano | Turno Mañana</h3>
     
   </header>
-</head>
-<nav>
-  <a class="boton-select" href="index.html">Juego</a>
-  <a class="boton" href="contact.html">Contacto</a>
-  <button id="modo-tema" class="boton-icono" title="Cambiar tema">
-    <i class="fas fa-moon"></i>
-  </button>
-</nav>
-<body>  
+  <nav>
+    <a class="boton-select" href="index.html">Juego</a>
+    <a class="boton" href="contact.html">Contacto</a>
+    <button id="modo-tema" class="boton-icono" title="Cambiar tema">
+      <i class="fas fa-moon"></i>
+    </button>
+  </nav>
+
   <main id="contenedor-juego">
     <h1 class="title">Buscaminas</h1>
     <div id="controles">
@@ -30,15 +33,19 @@
         <option value="dificil">Difícil</option>
       </select>      
       <input type="text" id="nombre-jugador" placeholder="Tu nombre" class="input-jugador" />
-      <button id="nuevo-juego" disabled>Inicio de Juego</button>      
-      <button onclick="borrarPuntajes()" class="boton">Borrar historial</button>
-      <span id="temporizador">Tiempo: 0</span>
-      <span id="contador-minas">Minas restantes: 0</span>
+      <button id="nuevo-juego">Inicio de Juego</button>      
+      <button id="btn-borrar-puntajes" class="boton">Borrar historial</button>
+
+      <div class="div-span">
+         <span id="temporizador">Tiempo: 0</span>
+         <span id="contador-minas">Minas restantes: 0</span>
+      </div>
     </div>
     <div id="tablero"></div>
   </main>
-  <main id="contenedor-tabla">
-    <h2>Listado de Puntajes</h2>
+<section id="contenedor-tabla">
+  <h2>Listado de Puntajes</h2>
+  <div class="tabla-scroll">
     <table id="tabla-puntajes" border="1" cellpadding="8">
       <thead>
         <tr>
@@ -50,40 +57,22 @@
       </thead>
       <tbody></tbody>
     </table>
-  </main>
-  <footer>
-    <p>©Proyecto Trabajo Final - DESARROLLO Y ARQUITECTURAS WEB</p>
-    <a href="https://github.com/JGIMENOUAI/Minesweeper" target="_blank">Ver en GitHub de Proyecto</a>
-  </footer>
+  </div>
+</section>
+
+  <div class="footer-container">
+    <footer>
+      <p>©Proyecto Trabajo Final - DESARROLLO Y ARQUITECTURAS WEB</p>
+      <a href="https://github.com/JGIMENOUAI/Minesweeper" target="_blank">Ver en GitHub de Proyecto</a>
+    </footer>
+  </div>
+
   <script src="js/tema.js"></script>
   <script src="js/ui.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/game.js"></script>
   <script src="js/events.js"></script>  
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const input = document.getElementById("nombre-jugador");
-      const boton = document.getElementById("nuevo-juego");
 
-      if (boton) {
-        boton.disabled = true;
-
-        input.addEventListener("input", () => {
-          if (input.value.trim().length >= 3) {
-            boton.disabled = false;
-          } else {
-            boton.disabled = true;
-          }
-        });
-
-        boton.addEventListener("click", () => {
-          if (!boton.disabled) {
-            console.log("Juego iniciado con nombre:", input.value);
-          }
-        });
-      }
-    });
-  </script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const botonTema = document.getElementById("cambiar-tema");
@@ -92,31 +81,13 @@
       });
     });
   </script>
-  <script>
-    function renderizarTablaPuntajes() {
-      const tabla = document.querySelector("#tabla-puntajes tbody");
-      tabla.innerHTML = "";
-      const puntajes = JSON.parse(localStorage.getItem("puntajes") || "[]");
-        puntajes.forEach(p => {
-          const fila = document.createElement("tr");
-          fila.innerHTML = `
-            <td>${p.nombre}</td>
-            <td>${p.dificultad}</td>
-            <td>${p.resultado}</td>
-            <td>${p.tiempo}</td>
-          `;
-          tabla.appendChild(fila);
-        });
-      }
 
-      function borrarPuntajes() {
-        if (confirm("¿Estás seguro de que querés borrar todo el historial?")) {
-          localStorage.removeItem("puntajes");
-          renderizarTablaPuntajes();
-        }
-      }
-    document.addEventListener("DOMContentLoaded", renderizarTablaPuntajes);
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    renderizarTablaPuntajes();
+  });
   </script>
+
 
 </body>
 </html>
