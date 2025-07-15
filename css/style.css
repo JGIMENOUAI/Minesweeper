@@ -5,10 +5,10 @@
   --color-texto: #1c1e21;
   --color-primario: #007bff;
   --color-secundario: #ffffff;
-  --color-celda: #dfe3e8;
-  --color-celda-revelada: #e0e0e0;
+  --color-celda: #999999;
+  --color-celda-revelada: #ffffff;
   --color-bandera: #ffc107;
-  --color-borde: #ced4da;
+  --color-borde: #00000061;
   --color-boton: #35547c;
   --color-boton-hover: #0f234e;
   --fuente-principal: 'Rubik', sans-serif;
@@ -23,6 +23,7 @@ header {
   border-bottom: solid 2px white;
 }
 
+
 body {
   font-family: var(--fuente-principal);
   background-color: var(--color-fondo);
@@ -31,8 +32,18 @@ body {
   padding: 20px;
   display: flex;
   flex-direction: column;
+    padding-bottom: 200px; /* o el alto del footer + algo de margen */
+
   align-items: center;
+
 }
+
+html, body {
+  height: auto; /* para que crezcan con el contenido */
+  min-height: 100%;
+  overflow-y: auto; /* permite scroll vertical */
+}
+
 
 nav {
   background-color: #acc6e0;
@@ -46,15 +57,31 @@ nav {
   margin-bottom: 10px;
 }
 
+.footer-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* o start si querés arriba */
+}
+
 footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   background-color: #343a40;
   color: white;
   padding: 15px;
-  width: 100%;
   text-align: center;
   font-size: 0.9em;
-  margin-top: 40px;
+  z-index: 100;
 }
+
+footer a{
+  color: aqua;
+}
+
 
 nav a {
   text-decoration: none;
@@ -137,16 +164,20 @@ button:hover, select:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 26px;
-  height: 26px;
+  width: 32px;
+  height: 32px;
   background-color: var(--color-celda);
   border: 1px solid var(--color-borde);
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra ligera */
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition: all 0.2s ease-in-out;
   user-select: none;
-  font-size: 12px;
+  font-size: 16px;
 }
+
+
 
 .celda:hover {
   transform: scale(1.05);
@@ -195,12 +226,31 @@ button:hover, select:hover {
   --color-fondo: #18191a;
   --color-texto: #e4e6eb;
   --color-celda: #3a3b3c;
-  --color-celda-revelada: #242526;
+  --color-celda-revelada: #979797;
   --color-bandera: #ff9800;
   --color-borde: #555;
   --color-boton: #4a90e2;
   --color-boton-hover: #357ab8;
+  --color-fondo-tabla: #8f7d7d10;
+  --color-fondo-tabla-light: white;
 }
+
+
+.modo-oscuro #tabla-puntajes {
+    background-color: var(--color-fondo-tabla);
+}
+
+#tabla-puntajes tr:nth-child(even),
+#tabla-puntajes tr:nth-child(odd) {
+  background-color: var(--color-celda); /* o el color que prefieras */
+}
+
+#tabla-puntajes td, 
+#tabla-puntajes th {
+  background-color: var(--color-celda);
+  color: var(--color-texto-tabla); /* opcional, si usás modo oscuro */
+}
+
 
 .input-jugador {
   width: 100%;
@@ -217,10 +267,10 @@ button:hover, select:hover {
 
 .input-jugador::placeholder {
   color: white;
-  font-style: italic;
-  -color: #00bcd4;
-  box-shadow: 0 0 8px rgba(0, 188, 212, 0.6);
-  background-color: #1a1a1a;
+  font-family: inherit;
+  font-size: 14px;
+  padding: 8px 16px;
+  
 }
 
 .boton-icono {
@@ -292,7 +342,7 @@ button[type="submit"]:hover {
   max-width: 600px;
   margin-top: 5px;
   margin-bottom: 20px;
-  font-family: 'Rubik', sans-serif;
+  font-family: inherit;
   background-color: #fff;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   border-radius: 8px;
@@ -315,7 +365,75 @@ button[type="submit"]:hover {
   background-color: #f1f1f1;
 }
 
+.tabla-scroll {
+  max-height: 200px; /* Ajustalo según el espacio que quieras */
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 8px;
+}
+
+
+.div-span {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.div-span span {
+  background-color: #35547c;      /* Fondo azul */
+  color: white;                   /* Texto blanco */
+  padding: 8px 12px;              /* Espaciado interno */
+  border-radius: 6px;             /* Bordes redondeados */
+  font-family: inherit;
+  font-size: 14px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  min-width: 160px;
+  text-align: center;
+}
+
 .title {
   font-size: 60px; 
   font-family:'Lucida Sans', sans-serif"
+}
+
+
+
+th.ordenable {
+  cursor: pointer;
+  user-select: none;
+  color: #4a90e2;
+}
+
+th.ordenable:hover {
+  text-decoration: underline;
+}
+
+
+.celda.mina-explotada {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+}
+
+
+.celda-1 {
+  color: blue;
+}
+
+.celda-2 {
+  color: green;
+}
+
+.celda-3 {
+  color: red;
+}
+
+.celda-4 {
+  color: darkblue;
+}
+
+.celda-5 {
+  color: maroon;
 }
