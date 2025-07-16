@@ -233,6 +233,7 @@ button:hover, select:hover {
   --color-boton-hover: #357ab8;
   --color-fondo-tabla: #8f7d7d10;
   --color-fondo-tabla-light: white;
+  --color-texto-tabla: white;
 }
 
 
@@ -248,7 +249,7 @@ button:hover, select:hover {
 #tabla-puntajes td, 
 #tabla-puntajes th {
   background-color: var(--color-celda);
-  color: var(--color-texto-tabla); /* opcional, si usás modo oscuro */
+  color: white;
 }
 
 

@@ -215,7 +215,7 @@ function renderizarTablaPuntajes() {
     fila.innerHTML = `
       <td>${p.nombre}</td>
       <td>${p.dificultad}</td>
-      <td>${p.gano ? "Ganó" : "Perdió"}</td>
+      <td>${p.resultado}</td>
       <td>${p.tiempo}</td>
     `;
     tbody.appendChild(fila);
@@ -237,3 +237,20 @@ document.addEventListener("DOMContentLoaded", () => {
     btnBorrar.addEventListener("click", borrarPuntajes);
   }
 });
+
+
+function alternarBandera(f, c) {
+  var celda = tablero[f][c];
+  if (celda.revelada) return;
+
+  celda.bandera = !celda.bandera;
+
+  var divs = document.querySelectorAll(".celda");
+  var index = f * columnas + c;
+  var div = divs[index];
+
+  div.textContent = celda.bandera ? "🚩" : "";
+  div.classList.toggle("bandera", celda.bandera);
+
+  actualizarContadorMinas();
+}
