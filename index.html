@@ -1,93 +1,100 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>Buscaminas - Proyecto Final</title>
-  <link href="css/reset.css" rel="stylesheet"/>
-  <link href="css/style.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-</head>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Buscaminas - Proyecto Final</title>
+    <link href="css/reset.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="icon" href="icon.png" type="image/png" />
+  </head>
 
-<body>  
+  <body>
+    <header>
+      <h1>Buscaminas - DESARROLLO Y ARQUITECTURAS WEB</h1>
+      <h3>Gimeno Bustos Juan Manuel - Tarditi Mariano | Turno Mañana</h3>
+    </header>
+    <nav>
+      <a class="boton-select" href="index.html">Juego</a>
+      <a class="boton" href="contact.html">Contacto</a>
+      <button id="modo-tema" class="boton-icono" title="Cambiar tema">
+        <i class="fas fa-moon"></i>
+      </button>
+    </nav>
 
-  <header>
-    <h1>Buscaminas - DESARROLLO Y ARQUITECTURAS WEB </h1>
-    <h3>Gimeno Bustos Juan Manuel - Tarditi Mariano | Turno Mañana</h3>
-    
-  </header>
-  <nav>
-    <a class="boton-select" href="index.html">Juego</a>
-    <a class="boton" href="contact.html">Contacto</a>
-    <button id="modo-tema" class="boton-icono" title="Cambiar tema">
-      <i class="fas fa-moon"></i>
-    </button>
-  </nav>
+    <main id="contenedor-juego">
+      <h1 class="title">Buscaminas</h1>
+      <div id="controles">
+        <select id="dificultad">
+          <option value="facil">Fácil</option>
+          <option value="medio">Medio</option>
+          <option value="dificil">Difícil</option>
+        </select>
+        <input
+          type="text"
+          id="nombre-jugador"
+          placeholder="Tu nombre"
+          class="input-jugador"
+        />
+        <button id="nuevo-juego">Inicio de Juego</button>
+        <button id="btn-borrar-puntajes" class="boton">Borrar historial</button>
 
-  <main id="contenedor-juego">
-    <h1 class="title">Buscaminas</h1>
-    <div id="controles">
-      <select id="dificultad">
-        <option value="facil">Fácil</option>
-        <option value="medio">Medio</option>
-        <option value="dificil">Difícil</option>
-      </select>      
-      <input type="text" id="nombre-jugador" placeholder="Tu nombre" class="input-jugador" />
-      <button id="nuevo-juego">Inicio de Juego</button>      
-      <button id="btn-borrar-puntajes" class="boton">Borrar historial</button>
-
-      <div class="div-span">
-         <span id="temporizador">Tiempo: 0</span>
-         <span id="contador-minas">Minas restantes: 0</span>
+        <div class="div-span">
+          <span id="temporizador">Tiempo: 0</span>
+          <span id="contador-minas">Minas restantes: 0</span>
+        </div>
       </div>
+      <div id="tablero"></div>
+    </main>
+    <section id="contenedor-tabla">
+      <h2>Listado de Puntajes</h2>
+      <div class="tabla-scroll">
+        <table id="tabla-puntajes" border="1" cellpadding="8">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Dificultad</th>
+              <th>Resultado</th>
+              <th>Tiempo (s)</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="footer-container">
+      <footer>
+        <p>©Proyecto Trabajo Final - DESARROLLO Y ARQUITECTURAS WEB</p>
+        <a href="https://github.com/JGIMENOUAI/Minesweeper" target="_blank"
+          >Ver en GitHub de Proyecto</a
+        >
+      </footer>
     </div>
-    <div id="tablero"></div>
-  </main>
-<section id="contenedor-tabla">
-  <h2>Listado de Puntajes</h2>
-  <div class="tabla-scroll">
-    <table id="tabla-puntajes" border="1" cellpadding="8">
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Dificultad</th>
-          <th>Resultado</th>
-          <th>Tiempo (s)</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
-</section>
 
-  <div class="footer-container">
-    <footer>
-      <p>©Proyecto Trabajo Final - DESARROLLO Y ARQUITECTURAS WEB</p>
-      <a href="https://github.com/JGIMENOUAI/Minesweeper" target="_blank">Ver en GitHub de Proyecto</a>
-    </footer>
-  </div>
+    <script src="js/tema.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/events.js"></script>
 
-  <script src="js/tema.js"></script>
-  <script src="js/ui.js"></script>
-  <script src="js/storage.js"></script>
-  <script src="js/game.js"></script>
-  <script src="js/events.js"></script>  
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const botonTema = document.getElementById("cambiar-tema");
-      botonTema?.addEventListener("click", () => {
-        document.body.classList.toggle("modo-oscuro");
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const botonTema = document.getElementById("cambiar-tema");
+        botonTema?.addEventListener("click", () => {
+          document.body.classList.toggle("modo-oscuro");
+        });
       });
-    });
-  </script>
+    </script>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-    renderizarTablaPuntajes();
-  });
-  </script>
-
-
-</body>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        renderizarTablaPuntajes();
+      });
+    </script>
+  </body>
 </html>
