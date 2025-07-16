@@ -13,17 +13,15 @@ var juegoTerminado = false;
 var primerClickFila = -1;
 var primerClickColumna = -1;
 
-
-
 function iniciarJuego(dificultad) {
-
   const nombre = document.getElementById("nombre-jugador").value.trim();
 
   if (nombre.length < 3) {
-    alert("Por favor, ingresa tu nombre (al menos 3 caracteres) antes de iniciar el juego.");
+    alert(
+      "Por favor, ingresa tu nombre (al menos 3 caracteres) antes de iniciar el juego."
+    );
     return; // No iniciar el juego
   }
-
 
   if (dificultad === "facil") {
     filas = columnas = 8;
@@ -45,7 +43,8 @@ function iniciarJuego(dificultad) {
   primerClickColumna = -1;
 
   document.getElementById("temporizador").textContent = "Tiempo: 0";
-  document.getElementById("contador-minas").textContent = "Minas restantes: " + minas;
+  document.getElementById("contador-minas").textContent =
+    "Minas restantes: " + minas;
   generarTablero();
   renderizarTablero();
 }
@@ -58,7 +57,7 @@ function generarTablero() {
         mina: false,
         revelada: false,
         bandera: false,
-        minasAlrededor: 0
+        minasAlrededor: 0,
       };
     }
   }
@@ -72,7 +71,8 @@ function colocarMinas(filaExcluida, columnaExcluida) {
     var rc = Math.floor(Math.random() * columnas);
 
     // Evitar poner mina en la celda del primer clic
-    if ((rf === filaExcluida && rc === columnaExcluida) || tablero[rf][rc].mina) continue;
+    if ((rf === filaExcluida && rc === columnaExcluida) || tablero[rf][rc].mina)
+      continue;
 
     tablero[rf][rc].mina = true;
     colocadas++;
@@ -88,8 +88,10 @@ function colocarMinas(filaExcluida, columnaExcluida) {
             var nf = f + df;
             var nc = c + dc;
             if (
-              nf >= 0 && nf < filas &&
-              nc >= 0 && nc < columnas &&
+              nf >= 0 &&
+              nf < filas &&
+              nc >= 0 &&
+              nc < columnas &&
               tablero[nf][nc].mina
             ) {
               total++;
@@ -114,7 +116,8 @@ function revelarCelda(f, c) {
 
     intervalo = setInterval(function () {
       temporizador++;
-      document.getElementById("temporizador").textContent = "Tiempo: " + temporizador;
+      document.getElementById("temporizador").textContent =
+        "Tiempo: " + temporizador;
     }, 1000);
   }
 
@@ -134,7 +137,7 @@ function revelarCelda(f, c) {
     div.classList.add("mina-explotada"); // 🔴 Resaltar la mina que explotó
     mostrarModal("¡Perdiste!", "Has hecho clic en una mina.", false);
     clearInterval(intervalo);
-    juegoTerminado = true;    
+    juegoTerminado = true;
     const nombre = document.getElementById("nombre-jugador").value;
     const dificultad = document.getElementById("dificultad").value;
     if (nombre.length >= 3) {
@@ -144,11 +147,10 @@ function revelarCelda(f, c) {
     return;
   }
 
-    if (celda.minasAlrededor > 0) {
-      div.textContent = celda.minasAlrededor;
-      div.classList.add(`celda-${celda.minasAlrededor}`); // ✅ Colorea según el número
-    }
-    else {
+  if (celda.minasAlrededor > 0) {
+    div.textContent = celda.minasAlrededor;
+    div.classList.add(`celda-${celda.minasAlrededor}`); // ✅ Colorea según el número
+  } else {
     for (var df = -1; df <= 1; df++) {
       for (var dc = -1; dc <= 1; dc++) {
         var nf = f + df;
@@ -181,7 +183,8 @@ function actualizarContadorMinas() {
     }
   }
   var restantes = minas - banderas;
-  document.getElementById("contador-minas").textContent = "Minas restantes: " + restantes;
+  document.getElementById("contador-minas").textContent =
+    "Minas restantes: " + restantes;
 }
 
 function revelarTodasLasMinas() {
@@ -215,7 +218,7 @@ function renderizarTablaPuntajes() {
     fila.innerHTML = `
       <td>${p.nombre}</td>
       <td>${p.dificultad}</td>
-      <td>${p.gano ? "Ganó" : "Perdió"}</td>
+      <td>${p.resultado}</td>
       <td>${p.tiempo}</td>
     `;
     tbody.appendChild(fila);
@@ -237,3 +240,19 @@ document.addEventListener("DOMContentLoaded", () => {
     btnBorrar.addEventListener("click", borrarPuntajes);
   }
 });
+
+function alternarBandera(f, c) {
+  var celda = tablero[f][c];
+  if (celda.revelada) return;
+
+  celda.bandera = !celda.bandera;
+
+  var divs = document.querySelectorAll(".celda");
+  var index = f * columnas + c;
+  var div = divs[index];
+
+  div.textContent = celda.bandera ? "🚩" : "";
+  div.classList.toggle("bandera", celda.bandera);
+
+  actualizarContadorMinas();
+}
