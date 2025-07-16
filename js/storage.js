@@ -5,7 +5,7 @@ function guardarPuntaje(nombre, tiempo, dificultad, gano) {
     nombre: nombre,
     tiempo: tiempo,
     dificultad: dificultad,
-    resultado: gano ? "Ganó" : "Perdió"
+    resultado: gano ? "Ganó" : "Perdió",
   });
   puntajes.sort(function (a, b) {
     return a.tiempo - b.tiempo;

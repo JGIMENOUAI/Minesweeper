@@ -3,7 +3,6 @@
 const sonidoVictoria = new Audio("sounds/FortniteWin.mp3");
 const sonidoDerrota = new Audio("sounds/FortniteLoss.mp3");
 
-
 function renderizarTablero() {
   var divTablero = document.getElementById("tablero");
   divTablero.innerHTML = "";
@@ -25,8 +24,10 @@ function renderizarTablero() {
       celda.style.height = "30px";
 
       // 🖱️ Evento para revelar celda con click
-      celda.addEventListener("click", () => {
-        revelarCelda(f, c);
+      celda.addEventListener("click", (e) => {
+        const fila = parseInt(e.target.dataset.fila);
+        const columna = parseInt(e.target.dataset.columna);
+        revelarCelda(fila, columna);
       });
 
       // 📱 Soporte para móviles: mantener presionado 3s para bandera
@@ -48,8 +49,6 @@ function renderizarTablero() {
   }
 }
 
-
-
 function mostrarModal(titulo, mensaje, victoria) {
   var modal = document.createElement("div");
   modal.className = "modal";
@@ -61,8 +60,8 @@ function mostrarModal(titulo, mensaje, victoria) {
     </div>
   `;
   document.body.appendChild(modal);
-  
-    // Reproducir el sonido según victoria o derrota
+
+  // Reproducir el sonido según victoria o derrota
   if (victoria) {
     sonidoVictoria.play();
   } else {
@@ -70,14 +69,15 @@ function mostrarModal(titulo, mensaje, victoria) {
   }
 
   // Al cerrar, si perdiste, revelar minas
-  document.getElementById("btnCerrarModal").addEventListener("click", function () {
-    modal.remove();
-    if (titulo === "¡Perdiste!") {
-      revelarTodasLasMinas();
-    }
-  });
+  document
+    .getElementById("btnCerrarModal")
+    .addEventListener("click", function () {
+      modal.remove();
+      if (titulo === "¡Perdiste!") {
+        revelarTodasLasMinas();
+      }
+    });
 }
-
 
 function cerrarModal() {
   var modal = document.querySelector(".modal");

@@ -23,7 +23,6 @@ header {
   border-bottom: solid 2px white;
 }
 
-
 body {
   font-family: var(--fuente-principal);
   background-color: var(--color-fondo);
@@ -32,18 +31,15 @@ body {
   padding: 20px;
   display: flex;
   flex-direction: column;
-    padding-bottom: 200px; /* o el alto del footer + algo de margen */
-
+  padding-bottom: 200px; 
   align-items: center;
-
 }
 
 html, body {
-  height: auto; /* para que crezcan con el contenido */
+  height: auto; 
   min-height: 100%;
-  overflow-y: auto; /* permite scroll vertical */
+  overflow-y: auto; 
 }
-
 
 nav {
   background-color: #acc6e0;
@@ -62,7 +58,7 @@ nav {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* o start si querés arriba */
+  justify-content: center; 
 }
 
 footer {
@@ -81,7 +77,6 @@ footer {
 footer a{
   color: aqua;
 }
-
 
 nav a {
   text-decoration: none;
@@ -177,8 +172,6 @@ button:hover, select:hover {
   font-size: 16px;
 }
 
-
-
 .celda:hover {
   transform: scale(1.05);
 }
@@ -236,9 +229,8 @@ button:hover, select:hover {
   --color-texto-tabla: white;
 }
 
-
 .modo-oscuro #tabla-puntajes {
-    background-color: var(--color-fondo-tabla);
+  background-color: var(--color-fondo-tabla);
 }
 
 #tabla-puntajes tr:nth-child(even),
@@ -251,7 +243,6 @@ button:hover, select:hover {
   background-color: var(--color-celda);
   color: white;
 }
-
 
 .input-jugador {
   width: 100%;
@@ -271,7 +262,6 @@ button:hover, select:hover {
   font-family: inherit;
   font-size: 14px;
   padding: 8px 16px;
-  
 }
 
 .boton-icono {
@@ -284,28 +274,28 @@ button:hover, select:hover {
 }
 
 .boton-icono i.fa-moon {
-  color: #888; /* gris para la luna */
+  color: #888; 
 }
 
 .boton-icono i.fa-sun {
-  color: #fdd835; /* amarillo para el sol */
+  color: #fdd835; 
 }
 
 .boton-icono:hover i.fa-moon {
-  color: #aaa; /* gris más claro al pasar el mouse */
+  color: #aaa; 
 }
 
 .boton-icono:hover i.fa-sun {
-  color: #ffeb3b; /* amarillo más brillante al pasar el mouse */
+  color: #ffeb3b;
 }
 
 form {
-      max-width: 400px;
-      margin: 20px auto;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+  max-width: 400px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
 input[type="text"],
 input[type="email"],
@@ -367,12 +357,11 @@ button[type="submit"]:hover {
 }
 
 .tabla-scroll {
-  max-height: 200px; /* Ajustalo según el espacio que quieras */
+  max-height: 200px; 
   overflow-y: auto;
   overflow-x: hidden;
   border-radius: 8px;
 }
-
 
 .div-span {
   display: flex;
@@ -383,10 +372,10 @@ button[type="submit"]:hover {
 }
 
 .div-span span {
-  background-color: #35547c;      /* Fondo azul */
-  color: white;                   /* Texto blanco */
-  padding: 8px 12px;              /* Espaciado interno */
-  border-radius: 6px;             /* Bordes redondeados */
+  background-color: #35547c;      
+  color: white;                   
+  padding: 8px 12px;             
+  border-radius: 6px;             
   font-family: inherit;
   font-size: 14px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
@@ -399,8 +388,6 @@ button[type="submit"]:hover {
   font-family:'Lucida Sans', sans-serif"
 }
 
-
-
 th.ordenable {
   cursor: pointer;
   user-select: none;
@@ -411,13 +398,11 @@ th.ordenable:hover {
   text-decoration: underline;
 }
 
-
 .celda.mina-explotada {
   background-color: red;
   color: white;
   font-weight: bold;
 }
-
 
 .celda-1 {
   color: blue;
@@ -437,4 +422,10 @@ th.ordenable:hover {
 
 .celda-5 {
   color: maroon;
+}
+
+.error-msg {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 2px;
 }
