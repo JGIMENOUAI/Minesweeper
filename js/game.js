@@ -17,10 +17,8 @@ function iniciarJuego(dificultad) {
   const nombre = document.getElementById("nombre-jugador").value.trim();
 
   if (nombre.length < 3) {
-    alert(
-      "Por favor, ingresa tu nombre (al menos 3 caracteres) antes de iniciar el juego."
-    );
-    return; // No iniciar el juego
+    mostrarModalNombreInvalido();
+    return;
   }
 
   if (dificultad === "facil") {
@@ -47,6 +45,16 @@ function iniciarJuego(dificultad) {
     "Minas restantes: " + minas;
   generarTablero();
   renderizarTablero();
+}
+
+function mostrarModalNombreInvalido() {
+  const modal = document.getElementById("modal-nombre");
+  modal.classList.remove("oculto");
+}
+
+function cerrarModalNombreInvalido() {
+  const modal = document.getElementById("modal-nombre");
+  modal.classList.add("oculto");
 }
 
 function generarTablero() {
@@ -204,16 +212,15 @@ function revelarTodasLasMinas() {
   }
 }
 
-function renderizarTablaPuntajes() {
-  let puntajes = JSON.parse(localStorage.getItem("puntajes")) || [];
+const renderizarTablaPuntajes = () => {
+  const puntajes = JSON.parse(localStorage.getItem("puntajes")) || [];
 
-  // Ordenar alfabéticamente por nombre
   puntajes.sort((a, b) => a.nombre.localeCompare(b.nombre));
 
   const tbody = document.querySelector("#tabla-puntajes tbody");
   tbody.innerHTML = "";
 
-  for (let p of puntajes) {
+  puntajes.forEach((p) => {
     const fila = document.createElement("tr");
     fila.innerHTML = `
       <td>${p.nombre}</td>
@@ -222,23 +229,59 @@ function renderizarTablaPuntajes() {
       <td>${p.tiempo}</td>
     `;
     tbody.appendChild(fila);
-  }
-}
+  });
+};
 
 // 🔽 Primero definí la función
-function borrarPuntajes() {
-  if (confirm("¿Estás seguro de que querés borrar todo el historial?")) {
-    localStorage.removeItem("puntajes");
-    renderizarTablaPuntajes(); // esta función también debe estar declarada antes
-  }
-}
-
-// 🔽 Luego hacé la asociación con el botón
+// Reemplazo del confirm() con modal
 document.addEventListener("DOMContentLoaded", () => {
+  // 🔹 Modal para ver puntajes
+  const btnVerPuntajes = document.getElementById("btn-ver-puntajes");
+  const modalPuntajes = document.getElementById("modal-puntajes");
+  const cerrarModal = document.getElementById("cerrar-modal-puntajes");
+
+  const modalConfirmacion = document.getElementById("modal-confirmacion");
   const btnBorrar = document.getElementById("btn-borrar-puntajes");
-  if (btnBorrar) {
-    btnBorrar.addEventListener("click", borrarPuntajes);
-  }
+  const btnConfirmar = document.getElementById("btn-confirmar-borrado");
+  const btnCancelar = document.getElementById("btn-cancelar-borrado");
+
+  const abrirModalConfirmacion = () => {
+    modalConfirmacion.style.display = "flex";
+  };
+
+  btnVerPuntajes?.addEventListener("click", () => {
+    renderizarTablaPuntajes();
+    modalPuntajes.classList.remove("oculto");
+  });
+
+  cerrarModal?.addEventListener("click", () => {
+    modalPuntajes.classList.add("oculto");
+  });
+
+  window.addEventListener("click", (event) => {
+    if (event.target === modalPuntajes) {
+      modalPuntajes.classList.add("oculto");
+    }
+  });
+
+  btnBorrar?.addEventListener("click", abrirModalConfirmacion);
+
+  btnCancelar?.addEventListener("click", () => {
+    modalConfirmacion.style.display = "none";
+  });
+
+  btnConfirmar?.addEventListener("click", () => {
+    localStorage.removeItem("puntajes");
+    renderizarTablaPuntajes();
+    modalConfirmacion.style.display = "none";
+  });
+
+  // Opcional: cerrar modal confirmación si clickea fuera del modal
+  window.addEventListener("click", (event) => {
+    if (event.target === modalConfirmacion) {
+      modalConfirmacion.style.display = "none";
+    }
+  });
 });
 
 function alternarBandera(f, c) {

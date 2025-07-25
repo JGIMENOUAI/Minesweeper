@@ -41,7 +41,7 @@
           class="input-jugador"
         />
         <button id="nuevo-juego">Inicio de Juego</button>
-        <button id="btn-borrar-puntajes" class="boton">Borrar historial</button>
+  
 
         <div class="div-span">
           <span id="temporizador">Tiempo: 0</span>
@@ -50,20 +50,36 @@
       </div>
       <div id="tablero"></div>
     </main>
+    <!-- Botón para abrir el modal -->
     <section id="contenedor-tabla">
       <h2>Listado de Puntajes</h2>
-      <div class="tabla-scroll">
-        <table id="tabla-puntajes" border="1" cellpadding="8">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Dificultad</th>
-              <th>Resultado</th>
-              <th>Tiempo (s)</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+
+      <button id="btn-ver-puntajes">Mostrar puntuaciones</button>
+
+      <!-- Modal de Puntajes -->
+      <div id="modal-puntajes" class="modal oculto">
+        <div class="modal-contenido">
+          <span class="cerrar" id="cerrar-modal-puntajes">&times;</span>
+          <h2>Clasificación de Jugadores</h2>
+          <div class="tabla-scroll">
+            <table id="tabla-puntajes" border="1" cellpadding="8">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Dificultad</th>
+                  <th>Resultado</th>
+                  <th>Tiempo (s)</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+
+            <!-- Botón que abre el modal de confirmación -->
+            <button id="btn-borrar-puntajes" class="boton">
+              Borrar historial
+            </button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -71,9 +87,36 @@
       <footer>
         <p>©Proyecto Trabajo Final - DESARROLLO Y ARQUITECTURAS WEB</p>
         <a href="https://github.com/JGIMENOUAI/Minesweeper" target="_blank"
-          >Ver en GitHub de Proyecto</a
+          >GitHub del Proyecto</a
         >
       </footer>
+    </div>
+
+    <!-- Modal nombre inválido -->
+    <div id="modal-nombre" class="modal oculto">
+      <div class="modal-contenido">
+        <span class="cerrar" onclick="cerrarModalNombreInvalido()"
+          >&times;</span
+        >
+        <p>
+          Por favor, ingresa tu nombre (al menos 3 caracteres) antes de iniciar
+          el juego.
+        </p>
+        <button onclick="cerrarModalNombreInvalido()">Cerrar</button>
+      </div>
+    </div>
+
+    <!-- Modal de Confirmación de Borrado -->
+    <div id="modal-confirmacion" class="modal oculto">
+      <div class="modal-contenido">
+        <p>
+          ¿Estás seguro de que querés borrar todo el historial de puntuaciones?
+        </p>
+        <div class="modal-buttons">
+          <button id="btn-confirmar-borrado">Sí, borrar</button>
+          <button id="btn-cancelar-borrado">Cancelar</button>
+        </div>
+      </div>
     </div>
 
     <script src="js/tema.js"></script>
