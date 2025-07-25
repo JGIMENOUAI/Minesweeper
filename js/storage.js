@@ -1,5 +1,6 @@
 "use strict";
-function guardarPuntaje(nombre, tiempo, dificultad, gano) {
+
+const guardarPuntaje = (nombre, tiempo, dificultad, gano) => {
   var puntajes = JSON.parse(localStorage.getItem("puntajes") || "[]");
   puntajes.push({
     id: Date.now(), // identificador único
@@ -13,5 +14,5 @@ function guardarPuntaje(nombre, tiempo, dificultad, gano) {
     return a.tiempo - b.tiempo;
   });
   localStorage.setItem("puntajes", JSON.stringify(puntajes));
-}
+};
 

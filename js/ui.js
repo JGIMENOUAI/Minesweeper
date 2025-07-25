@@ -3,7 +3,7 @@
 const sonidoVictoria = new Audio("sounds/FortniteWin.mp3");
 const sonidoDerrota = new Audio("sounds/FortniteLoss.mp3");
 
-function renderizarTablero() {
+const renderizarTablero = () => {
   var divTablero = document.getElementById("tablero");
   divTablero.innerHTML = "";
 
@@ -47,9 +47,9 @@ function renderizarTablero() {
 
     divTablero.appendChild(filaDiv);
   }
-}
+};
 
-function mostrarModal(titulo, mensaje, victoria) {
+const mostrarModal = (titulo, mensaje, victoria) => {
   var modal = document.createElement("div");
   modal.className = "modal";
   modal.innerHTML = `
@@ -82,4 +82,4 @@ function mostrarModal(titulo, mensaje, victoria) {
 function cerrarModal() {
   var modal = document.querySelector(".modal");
   if (modal) modal.remove();
-}
+};

@@ -13,7 +13,7 @@ var juegoTerminado = false;
 var primerClickFila = -1;
 var primerClickColumna = -1;
 
-function iniciarJuego(dificultad) {
+const iniciarJuego = (dificultad) => {
   const nombre = document.getElementById("nombre-jugador").value.trim();
 
   if (nombre.length < 3) {
@@ -70,9 +70,9 @@ function generarTablero() {
     }
   }
   // NO colocamos minas aquí, se colocan después del primer clic
-}
+};
 
-function colocarMinas(filaExcluida, columnaExcluida) {
+const colocarMinas = (filaExcluida, columnaExcluida) => {
   var colocadas = 0;
   while (colocadas < minas) {
     var rf = Math.floor(Math.random() * filas);
@@ -110,9 +110,9 @@ function colocarMinas(filaExcluida, columnaExcluida) {
       }
     }
   }
-}
+};
 
-function revelarCelda(f, c) {
+const revelarCelda = (f, c) => {
   if (juegoTerminado) return;
 
   // Si no se inició el juego, iniciarlo y colocar minas evitando esta celda
@@ -153,7 +153,7 @@ function revelarCelda(f, c) {
       renderizarTablaPuntajes();
     }
     return;
-  }
+  };
 
   if (celda.minasAlrededor > 0) {
     div.textContent = celda.minasAlrededor;
@@ -183,7 +183,7 @@ function revelarCelda(f, c) {
   }
 }
 
-function actualizarContadorMinas() {
+const actualizarContadorMinas = () => {
   var banderas = 0;
   for (var f = 0; f < filas; f++) {
     for (var c = 0; c < columnas; c++) {
@@ -210,7 +210,7 @@ function revelarTodasLasMinas() {
       }
     }
   }
-}
+};
 
 const renderizarTablaPuntajes = () => {
   const puntajes = JSON.parse(localStorage.getItem("puntajes")) || [];
@@ -284,7 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-function alternarBandera(f, c) {
+const alternarBandera = (f, c) => {
   var celda = tablero[f][c];
   if (celda.revelada) return;
 
@@ -298,4 +298,4 @@ function alternarBandera(f, c) {
   div.classList.toggle("bandera", celda.bandera);
 
   actualizarContadorMinas();
-}
+};
