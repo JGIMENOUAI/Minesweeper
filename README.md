@@ -30,6 +30,13 @@ Ideal para practicar lógica, manejo de eventos y DOM, almacenamiento local y di
 
 ---
 
+## 📢 Créditos
+
+Proyecto realizado por los alumnos: **Juan Manuel Gimeno** y **Mariano Tarditi**.
+Para la materia: Desarrollo y Arquitecturas Web (4to año)
+
+---
+
 ## 📂 Estructura del proyecto
 
 ```plaintext
@@ -50,8 +57,3 @@ Ideal para practicar lógica, manejo de eventos y DOM, almacenamiento local y di
 │   └── FortniteWin.mp3   # Sonido cuando se gana la partida
 └── icon.png            # Ícono del sitio
 
-
-## 📢 Créditos
-
-Proyecto realizado por los alumnos: **Juan Manuel Gimeno** y **Mariano Tarditi**.
-Para la materia: Desarrollo y Arquitecturas Web (4to año)
