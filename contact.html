@@ -1,52 +1,61 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>Buscaminas - Proyecto Final</title>
-  <link href="css/reset.css" rel="stylesheet"/>
-  <link href="css/style.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-</head>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Buscaminas - Proyecto Final</title>
+    <link href="css/reset.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
 
-<body>
-  <header>
-    <h1>UAI - Proyecto Trabajo Final - DESARROLLO Y ARQUITECTURAS WEB </h1>
-    <h3>Alumnos: Gimeno Bustos Juan Manuel - Tarditi Mariano | Turno: Mañana</h3>
-  </header>
+  <body>
+    <header>
+      <h1>Buscaminas - DESARROLLO Y ARQUITECTURAS WEB</h1>
+      <h3>Gimeno Bustos Juan Manuel - Tarditi Mariano | Turno Mañana</h3>
+    </header>
 
-  <nav>
-    <a class="boton" href="index.html">Juego</a>
-    <a class="boton-select" href="contact.html">Contacto</a>
-    <button id="modo-tema" class="boton-icono" title="Cambiar tema">
-      <i class="fas fa-moon"></i>
-    </button>
-  </nav>
+    <nav>
+      <a class="boton" href="index.html">Juego</a>
+      <a class="boton-select" href="contact.html">Contacto</a>
+      <button id="modo-tema" class="boton-icono" title="Cambiar tema">
+        <i class="fas fa-moon"></i>
+      </button>
+    </nav>
 
-  <main id="contenedor-juego">
-    <h1>Contacto</h1>
-    <form id="formulario-contacto" action="mailto:tuemail@ejemplo.com" method="POST" enctype="text/plain">
-      <label for="nombre">Nombre y Apellido:</label>
-      <input type="text" name="nombre" id="nombre" required>
+    <main id="contenedor-juego">
+      <h1>Contacto</h1>
+      <form
+        id="formulario-contacto"
+        action="mailto:tuemail@ejemplo.com"
+        method="POST"
+        enctype="text/plain"
+      >
+        <label for="nombre">Nombre y Apellido:</label>
+        <input type="text" name="nombre" id="nombre" required />
 
-      <label for="email">Email:</label>
-      <input type="email" name="email" id="email" required>
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required />
 
-      <label for="mensaje">Mensaje:</label>
-      <textarea name="mensaje" id="mensaje" required></textarea>
+        <label for="mensaje">Mensaje:</label>
+        <textarea name="mensaje" id="mensaje" required></textarea>
 
-      <button type="submit">Enviar</button>
-    </form>
-    <div id="tablero"></div>
-  </main>  
+        <button type="submit">Enviar</button>
+      </form>
+      <div id="tablero"></div>
+    </main>
 
-  <footer>
-    <p>©Proyecto Trabajo Final - DESARROLLO Y ARQUITECTURAS WEB</p>
-    <a href="https://github.com/JGIMENOUAI/Minesweeper" target="_blank">Ver en GitHub de Proyecto</a>
-  </footer>
+    <footer>
+      <p>©Proyecto Trabajo Final - DESARROLLO Y ARQUITECTURAS WEB</p>
+      <a href="https://github.com/JGIMENOUAI/Minesweeper" target="_blank"
+        >GitHub del Proyecto</a
+      >
+    </footer>
 
-  <script src="js/tema.js"></script>
-  <script src="js/contact.js"></script>  
-
-</body>
+    <script src="js/tema.js"></script>
+    <script src="js/contact.js"></script>
+  </body>
 </html>

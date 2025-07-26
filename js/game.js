@@ -13,14 +13,12 @@ var juegoTerminado = false;
 var primerClickFila = -1;
 var primerClickColumna = -1;
 
-function iniciarJuego(dificultad) {
+const iniciarJuego = (dificultad) => {
   const nombre = document.getElementById("nombre-jugador").value.trim();
 
   if (nombre.length < 3) {
-    alert(
-      "Por favor, ingresa tu nombre (al menos 3 caracteres) antes de iniciar el juego."
-    );
-    return; // No iniciar el juego
+    mostrarModalNombreInvalido();
+    return;
   }
 
   if (dificultad === "facil") {
@@ -49,6 +47,16 @@ function iniciarJuego(dificultad) {
   renderizarTablero();
 }
 
+function mostrarModalNombreInvalido() {
+  const modal = document.getElementById("modal-nombre");
+  modal.classList.remove("oculto");
+}
+
+function cerrarModalNombreInvalido() {
+  const modal = document.getElementById("modal-nombre");
+  modal.classList.add("oculto");
+}
+
 function generarTablero() {
   for (var f = 0; f < filas; f++) {
     tablero[f] = [];
@@ -62,9 +70,9 @@ function generarTablero() {
     }
   }
   // NO colocamos minas aquí, se colocan después del primer clic
-}
+};
 
-function colocarMinas(filaExcluida, columnaExcluida) {
+const colocarMinas = (filaExcluida, columnaExcluida) => {
   var colocadas = 0;
   while (colocadas < minas) {
     var rf = Math.floor(Math.random() * filas);
@@ -102,9 +110,9 @@ function colocarMinas(filaExcluida, columnaExcluida) {
       }
     }
   }
-}
+};
 
-function revelarCelda(f, c) {
+const revelarCelda = (f, c) => {
   if (juegoTerminado) return;
 
   // Si no se inició el juego, iniciarlo y colocar minas evitando esta celda
@@ -145,7 +153,7 @@ function revelarCelda(f, c) {
       renderizarTablaPuntajes();
     }
     return;
-  }
+  };
 
   if (celda.minasAlrededor > 0) {
     div.textContent = celda.minasAlrededor;
@@ -175,7 +183,7 @@ function revelarCelda(f, c) {
   }
 }
 
-function actualizarContadorMinas() {
+const actualizarContadorMinas = () => {
   var banderas = 0;
   for (var f = 0; f < filas; f++) {
     for (var c = 0; c < columnas; c++) {
@@ -202,18 +210,17 @@ function revelarTodasLasMinas() {
       }
     }
   }
-}
+};
 
-function renderizarTablaPuntajes() {
-  let puntajes = JSON.parse(localStorage.getItem("puntajes")) || [];
+const renderizarTablaPuntajes = () => {
+  const puntajes = JSON.parse(localStorage.getItem("puntajes")) || [];
 
-  // Ordenar alfabéticamente por nombre
   puntajes.sort((a, b) => a.nombre.localeCompare(b.nombre));
 
   const tbody = document.querySelector("#tabla-puntajes tbody");
   tbody.innerHTML = "";
 
-  for (let p of puntajes) {
+  puntajes.forEach((p) => {
     const fila = document.createElement("tr");
     fila.innerHTML = `
       <td>${p.nombre}</td>
@@ -222,26 +229,62 @@ function renderizarTablaPuntajes() {
       <td>${p.tiempo}</td>
     `;
     tbody.appendChild(fila);
-  }
-}
+  });
+};
 
 // 🔽 Primero definí la función
-function borrarPuntajes() {
-  if (confirm("¿Estás seguro de que querés borrar todo el historial?")) {
-    localStorage.removeItem("puntajes");
-    renderizarTablaPuntajes(); // esta función también debe estar declarada antes
-  }
-}
-
-// 🔽 Luego hacé la asociación con el botón
+// Reemplazo del confirm() con modal
 document.addEventListener("DOMContentLoaded", () => {
+  // 🔹 Modal para ver puntajes
+  const btnVerPuntajes = document.getElementById("btn-ver-puntajes");
+  const modalPuntajes = document.getElementById("modal-puntajes");
+  const cerrarModal = document.getElementById("cerrar-modal-puntajes");
+
+  const modalConfirmacion = document.getElementById("modal-confirmacion");
   const btnBorrar = document.getElementById("btn-borrar-puntajes");
-  if (btnBorrar) {
-    btnBorrar.addEventListener("click", borrarPuntajes);
-  }
+  const btnConfirmar = document.getElementById("btn-confirmar-borrado");
+  const btnCancelar = document.getElementById("btn-cancelar-borrado");
+
+  const abrirModalConfirmacion = () => {
+    modalConfirmacion.style.display = "flex";
+  };
+
+  btnVerPuntajes?.addEventListener("click", () => {
+    renderizarTablaPuntajes();
+    modalPuntajes.classList.remove("oculto");
+  });
+
+  cerrarModal?.addEventListener("click", () => {
+    modalPuntajes.classList.add("oculto");
+  });
+
+  window.addEventListener("click", (event) => {
+    if (event.target === modalPuntajes) {
+      modalPuntajes.classList.add("oculto");
+    }
+  });
+
+  btnBorrar?.addEventListener("click", abrirModalConfirmacion);
+
+  btnCancelar?.addEventListener("click", () => {
+    modalConfirmacion.style.display = "none";
+  });
+
+  btnConfirmar?.addEventListener("click", () => {
+    localStorage.removeItem("puntajes");
+    renderizarTablaPuntajes();
+    modalConfirmacion.style.display = "none";
+  });
+
+  // Opcional: cerrar modal confirmación si clickea fuera del modal
+  window.addEventListener("click", (event) => {
+    if (event.target === modalConfirmacion) {
+      modalConfirmacion.style.display = "none";
+    }
+  });
 });
 
-function alternarBandera(f, c) {
+const alternarBandera = (f, c) => {
   var celda = tablero[f][c];
   if (celda.revelada) return;
 
@@ -255,4 +298,4 @@ function alternarBandera(f, c) {
   div.classList.toggle("bandera", celda.bandera);
 
   actualizarContadorMinas();
-}
+};
