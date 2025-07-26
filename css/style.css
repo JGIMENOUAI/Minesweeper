@@ -130,7 +130,7 @@ select:hover {
   gap: 15px;
   font-family: var(--fuente-principal);
   background-color: var(--color-fondo);
-  color: var(--color-texto);
+  color: var(--color-texto-page);
   margin: 0;
   padding: 20px;
   display: flex;
@@ -227,7 +227,8 @@ select:hover {
 
 .modo-oscuro {
   --color-fondo: #18191a;
-  --color-texto: #e4e6eb;
+  --color-texto: #000000;
+  --color-texto-page: #ffffff;
   --color-celda: #3a3b3c;
   --color-celda-revelada: #979797;
   --color-bandera: #ff9800;
