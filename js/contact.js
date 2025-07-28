@@ -60,12 +60,10 @@ document.addEventListener("DOMContentLoaded", function () {
     return true;
   }
 
-  // Validar en blur
   nombre.addEventListener("blur", validarNombre);
   email.addEventListener("blur", validarEmail);
   mensaje.addEventListener("blur", validarMensaje);
 
-  // Limpiar en focus
   nombre.addEventListener("focus", function () {
     limpiarError(nombre);
   });
@@ -76,7 +74,6 @@ document.addEventListener("DOMContentLoaded", function () {
     limpiarError(mensaje);
   });
 
-  // Validar todo al enviar
   form.addEventListener("submit", function (e) {
     var validoNombre = validarNombre();
     var validoEmail = validarEmail();

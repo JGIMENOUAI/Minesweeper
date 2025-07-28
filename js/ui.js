@@ -3,11 +3,11 @@
 const sonidoVictoria = new Audio("sounds/FortniteWin.mp3");
 const sonidoDerrota = new Audio("sounds/FortniteLoss.mp3");
 
-const renderizarTablero = () => {
+function renderizarTablero() {
   var divTablero = document.getElementById("tablero");
   divTablero.innerHTML = "";
 
-  divTablero.style.display = "block"; // por si usás flexbox más adelante
+  divTablero.style.display = "block";
 
   for (var f = 0; f < filas; f++) {
     var filaDiv = document.createElement("div");
@@ -23,33 +23,36 @@ const renderizarTablero = () => {
       celda.style.width = "30px";
       celda.style.height = "30px";
 
-      // 🖱️ Evento para revelar celda con click
-      celda.addEventListener("click", (e) => {
-        const fila = parseInt(e.target.dataset.fila);
-        const columna = parseInt(e.target.dataset.columna);
+      celda.addEventListener("click", function (e) {
+        var fila = parseInt(e.target.dataset.fila, 10);
+        var columna = parseInt(e.target.dataset.columna, 10);
         revelarCelda(fila, columna);
       });
 
-      // 📱 Soporte para móviles: mantener presionado 3s para bandera
-      let presionado;
-      celda.addEventListener("touchstart", () => {
+      var presionado;
+      celda.addEventListener("touchstart", function () {
         if (juegoTerminado) return;
-        presionado = setTimeout(() => {
+        presionado = setTimeout(function () {
           alternarBandera(f, c);
-        }, 3000); // 3 segundos
+        }, 3000); // 3 seg
       });
 
-      celda.addEventListener("touchend", () => clearTimeout(presionado));
-      celda.addEventListener("touchcancel", () => clearTimeout(presionado));
+      celda.addEventListener("touchend", function () {
+        clearTimeout(presionado);
+      });
+
+      celda.addEventListener("touchcancel", function () {
+        clearTimeout(presionado);
+      });
 
       filaDiv.appendChild(celda);
     }
 
     divTablero.appendChild(filaDiv);
   }
-};
+}
 
-const mostrarModal = (titulo, mensaje, victoria) => {
+function mostrarModal(titulo, mensaje, victoria) {
   var modal = document.createElement("div");
   modal.className = "modal";
   modal.innerHTML = `
@@ -61,14 +64,12 @@ const mostrarModal = (titulo, mensaje, victoria) => {
   `;
   document.body.appendChild(modal);
 
-  // Reproducir el sonido según victoria o derrota
   if (victoria) {
     sonidoVictoria.play();
   } else {
     sonidoDerrota.play();
   }
 
-  // Al cerrar, si perdiste, revelar minas
   document
     .getElementById("btnCerrarModal")
     .addEventListener("click", function () {
@@ -82,4 +83,4 @@ const mostrarModal = (titulo, mensaje, victoria) => {
 function cerrarModal() {
   var modal = document.querySelector(".modal");
   if (modal) modal.remove();
-};
+}

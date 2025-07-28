@@ -1,6 +1,5 @@
 "use strict";
 
-// Alternar entre modo claro y oscuro
 document.getElementById("modo-tema").addEventListener("click", function () {
   document.body.classList.toggle("modo-oscuro");
 
@@ -16,7 +15,6 @@ document.getElementById("modo-tema").addEventListener("click", function () {
   }
 });
 
-// Aplicar tema guardado al cargar la página
 window.addEventListener("DOMContentLoaded", function () {
   const temaGuardado = localStorage.getItem("tema");
   const icono = document.getElementById("modo-tema")?.querySelector("i");
