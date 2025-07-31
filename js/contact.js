@@ -3,12 +3,13 @@
 document.addEventListener("DOMContentLoaded", function () {
   var form = document.getElementById("formulario-contacto");
 
-  if (!form) return;
+  if (!form) return; // Asegura que el formulario exista antes de agregar eventos.
 
   var nombre = form.nombre;
   var email = form.email;
   var mensaje = form.mensaje;
 
+  // Muestra un mensaje de error debajo del input.
   function mostrarError(input, mensaje) {
     var error = input.nextElementSibling;
     if (!error || !error.classList.contains("error-msg")) {
@@ -22,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
     error.textContent = mensaje;
   }
 
+  // Limpia el mensaje de error al hacer focus en el input.
   function limpiarError(input) {
     var error = input.nextElementSibling;
     if (error && error.classList.contains("error-msg")) {
@@ -29,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // Valida el nombre, email y mensaje al enviar el formulario.
   function validarNombre() {
     var val = nombre.value.trim();
     if (val.length <= 6 || val.indexOf(" ") === -1) {
@@ -39,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return true;
   }
 
+  // Valida el email con una expresión regular.
   function validarEmail() {
     var val = email.value.trim();
     var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -50,6 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return true;
   }
 
+  // Valida el mensaje, debe tener al menos 5 caracteres.
   function validarMensaje() {
     var val = mensaje.value.trim();
     if (val.length < 5) {
@@ -60,6 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return true;
   }
 
+  // Agrega los eventos de validación al formulario.
   nombre.addEventListener("blur", validarNombre);
   email.addEventListener("blur", validarEmail);
   mensaje.addEventListener("blur", validarMensaje);

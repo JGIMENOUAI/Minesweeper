@@ -1,8 +1,8 @@
 "use strict";
 
 document.getElementById("modo-tema").addEventListener("click", function () {
+  // Cuando se hace clic en el botón con ID modo-tema, se alterna la clase CSS modo-oscuro en el <body>, activando o desactivando el modo oscuro.
   document.body.classList.toggle("modo-oscuro");
-
   const icono = this.querySelector("i");
   if (document.body.classList.contains("modo-oscuro")) {
     localStorage.setItem("tema", "oscuro");
@@ -15,6 +15,8 @@ document.getElementById("modo-tema").addEventListener("click", function () {
   }
 });
 
+// Al cargar la página (DOMContentLoaded), se recupera el tema guardado.
+//Si el valor es "oscuro", se aplica la clase modo-oscuro al <body> y se actualiza el ícono.
 window.addEventListener("DOMContentLoaded", function () {
   const temaGuardado = localStorage.getItem("tema");
   const icono = document.getElementById("modo-tema")?.querySelector("i");

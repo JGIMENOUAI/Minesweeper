@@ -16,10 +16,12 @@ function iniciarJuego(dificultad) {
   const nombre = document.getElementById("nombre-jugador").value.trim();
 
   if (nombre.length < 3) {
+    // Valida el nombre ingresado (mínimo 3 caracteres).
     mostrarModalNombreInvalido();
     return;
   }
 
+  // Establece el tamaño del tablero y número de minas según la dificultad.
   if (dificultad === "facil") {
     filas = columnas = 8;
     minas = 10;
@@ -30,6 +32,8 @@ function iniciarJuego(dificultad) {
     filas = columnas = 16;
     minas = 40;
   }
+
+  //Reinicia todas las variables y estado del juego.
   tablero = [];
   reveladas = 0;
   clearInterval(intervalo);
@@ -42,10 +46,11 @@ function iniciarJuego(dificultad) {
   document.getElementById("temporizador").textContent = "Tiempo: 0";
   document.getElementById("contador-minas").textContent =
     "Minas restantes: " + minas;
-  generarTablero();
-  renderizarTablero();
+  generarTablero(); // inicializa la matriz vacía del tablero.
+  renderizarTablero(); // dibuja visualmente el tablero.
 }
 
+// Muestra u oculta un modal si el nombre del jugador no es válido.
 function mostrarModalNombreInvalido() {
   const modal = document.getElementById("modal-nombre");
   modal.classList.remove("oculto");
@@ -55,7 +60,7 @@ function cerrarModalNombreInvalido() {
   const modal = document.getElementById("modal-nombre");
   modal.classList.add("oculto");
 }
-
+// inicializa la matriz vacía del tablero. Crea una matriz de objetos para representar cada celda
 function generarTablero() {
   for (var f = 0; f < filas; f++) {
     tablero[f] = [];
@@ -70,6 +75,7 @@ function generarTablero() {
   }
 }
 
+// Coloca las minas en el tablero, evitando la celda del primer clic.
 function colocarMinas(filaExcluida, columnaExcluida) {
   var colocadas = 0;
   while (colocadas < minas) {
@@ -83,6 +89,7 @@ function colocarMinas(filaExcluida, columnaExcluida) {
     colocadas++;
   }
 
+  // Calcula las minas alrededor de cada celda.
   for (var f = 0; f < filas; f++) {
     for (var c = 0; c < columnas; c++) {
       if (!tablero[f][c].mina) {
@@ -108,9 +115,11 @@ function colocarMinas(filaExcluida, columnaExcluida) {
   }
 }
 
+// Revela una celda al hacer clic. Si es la primera celda, coloca las minas y comienza el temporizador.
 function revelarCelda(f, c) {
   if (juegoTerminado) return;
 
+  // Marca que el juego ha iniciado. Coloca las minas después del primer clic. Inicia el temporizador.
   if (!juegoIniciado) {
     juegoIniciado = true;
     primerClickFila = f;
@@ -135,6 +144,7 @@ function revelarCelda(f, c) {
   var div = divs[index];
   div.classList.add("revelada");
 
+  // SI hay una mina, termina el juego (derrota), detiene el temporizador y guarda el puntaje.
   if (celda.mina) {
     div.textContent = "💣";
     div.classList.add("mina-explotada");
@@ -149,7 +159,7 @@ function revelarCelda(f, c) {
     }
     return;
   }
-
+  // Si la celda no tiene minas alrededor, revela las celdas adyacentes.
   if (celda.minasAlrededor > 0) {
     div.textContent = celda.minasAlrededor;
     div.classList.add(`celda-${celda.minasAlrededor}`);
@@ -164,7 +174,7 @@ function revelarCelda(f, c) {
       }
     }
   }
-
+  // Detiene el juego, muestra un modal y guarda el puntaje.
   if (reveladas === filas * columnas - minas) {
     clearInterval(intervalo);
     mostrarModal("¡Ganaste!", "Has revelado todas las celdas.", true);
@@ -178,6 +188,7 @@ function revelarCelda(f, c) {
   }
 }
 
+// Recorre todo el tablero. Cuenta las celdas que tienen bandera = true.
 function actualizarContadorMinas() {
   var banderas = 0;
   for (var f = 0; f < filas; f++) {
@@ -190,6 +201,7 @@ function actualizarContadorMinas() {
     "Minas restantes: " + restantes;
 }
 
+// Cuando el jugador pierde, muestra todas las minas del tablero.
 function revelarTodasLasMinas() {
   var divs = document.querySelectorAll(".celda");
   for (var f = 0; f < filas; f++) {
@@ -207,17 +219,20 @@ function revelarTodasLasMinas() {
   }
 }
 
+// Carga los puntajes guardados en localStorage y los muestra en una tabla HTML.
 function renderizarTablaPuntajes() {
-  const puntajes = JSON.parse(localStorage.getItem("puntajes")) || [];
+  const puntajes = JSON.parse(localStorage.getItem("puntajes")) || []; // Lee el array de puntajes desde localStorage.
 
   puntajes.sort(function (a, b) {
+    // Lo ordena alfabéticamente por nombre.
     return a.nombre.localeCompare(b.nombre);
   });
 
-  const tbody = document.querySelector("#tabla-puntajes tbody");
+  const tbody = document.querySelector("#tabla-puntajes tbody"); // Limpia el contenido anterior de la tabla.
   tbody.innerHTML = "";
 
   puntajes.forEach(function (p) {
+    // Crea una fila (<tr>) por cada puntaje con nombre, dificultad, resultado y tiempo.
     var fila = document.createElement("tr");
     fila.innerHTML =
       "<td>" +
@@ -236,6 +251,7 @@ function renderizarTablaPuntajes() {
   });
 }
 
+// Este bloque se ejecuta cuando la página ha terminado de cargar. Define comportamiento para los botones relacionados con los puntajes
 document.addEventListener("DOMContentLoaded", function () {
   var btnVerPuntajes = document.getElementById("btn-ver-puntajes");
   var modalPuntajes = document.getElementById("modal-puntajes");
@@ -300,6 +316,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+// Coloca o quita una bandera en una celda específica (usado para marcar minas).
 function alternarBandera(f, c) {
   var celda = tablero[f][c];
   if (celda.revelada) return;
