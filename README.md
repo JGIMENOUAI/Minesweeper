@@ -37,6 +37,11 @@ Para la materia: Desarrollo y Arquitecturas Web (4to año)
 
 ---
 
+### Link del juego:
+https://jgimenouai.github.io/Minesweeper/index.html
+
+
+
 ## 📂 Estructura del proyecto
 
 ```plaintext
@@ -56,4 +61,6 @@ Para la materia: Desarrollo y Arquitecturas Web (4to año)
 │   ├── FortniteLoss.mp3  # Sonido cuando se pierde la partida
 │   └── FortniteWin.mp3   # Sonido cuando se gana la partida
 └── icon.png            # Ícono del sitio
+
+
 
